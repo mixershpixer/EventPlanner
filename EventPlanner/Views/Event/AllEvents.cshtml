@@ -1,0 +1,32 @@
+﻿@model EventPlanner.Models.Event
+
+@{
+    ViewData["Title"] = "AllEvents";
+}
+
+<h2>AllEvents</h2>
+
+<table>
+    @foreach (EventPlanner.Models.Event p in ViewBag.Events)
+    {
+        @Html.Partial("EventViewItem", p)
+        ViewBag.count += 1;
+    }
+</table>
+
+@section Scripts {
+    <script>
+        function FuncOnClick(counter) {
+            var str_sign = '#sign' + counter;
+            var str_div = '#div_sign' + counter;
+            $.ajax({
+                type: "POST",
+                url: '/Event/SignProjectAsync',
+                data: $(str_sign).val(),
+                success: function (data) {
+                    $(str_div).replaceWith(data);
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,66 @@
+﻿@model EventPlanner.Models.Event
+@{
+    int counter = 0;
+    string div = "div_sign" + Model.Id;
+    string sign = "sign" + Model.Id;
+}
+<tr id="@div">
+    <td>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd>
+                @Model.Title
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.MaxUsers)
+            </dt>
+            <dd>
+                @Model.MaxUsers
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SignedUsersCount)
+            </dt>
+            <dd>
+                @Model.SignedUsersCount
+            </dd>
+            @foreach (EventPlanner.Models.Field field in ViewBag.Fields)
+            {
+                if (field.EventId == Model.Id)
+                {
+                    @Html.Partial("FieldViewItem", field)
+                }
+            }
+        </dl>
+    </td>
+    @if (ViewBag.IsAuthenticated)
+    {
+        <td>
+            @foreach (EventPlanner.Models.UserEvent item in ViewBag.EventUser)
+            {
+                if (item.UserId == ViewBag.UserId && item.EventId == Model.Id)
+                {
+                    <button value="@Model.Id" onclick="FuncOnClick(@Model.Id)" id="@sign" style="margin-left:10px" class="btn btn-primary btn-danger">
+                        Unsubscribe
+                    </button>
+                    counter = 1;
+                    break;
+                }
+            }
+            @if (counter == 0)
+            {
+                if (Model.MaxUsers == Model.SignedUsersCount)
+                {
+                    <p style="margin-left:10px">There are no free places on this event.</p>
+                }
+                else
+                {
+                    <button value="@Model.Id" onclick="FuncOnClick(@Model.Id)" id="@sign" style="margin-left:10px" class="btn btn-primary btn-success">
+                        Subscribe
+                    </button>
+                }
+            }
+        </td>
+    }
+</tr>

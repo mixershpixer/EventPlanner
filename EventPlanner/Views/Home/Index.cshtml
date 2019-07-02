@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Event Planning</h1>
+    <br />
+    @if (!ViewBag.IsAuthenticated)
+    {
+        @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary btn-lg" })
+    }
+        @Html.ActionLink("View all events", "AllEvents", "Event", routeValues: null, htmlAttributes: new { id = "alleventslink", @class = "btn btn-primary btn-lg" })
+        @Html.ActionLink("Create new event", "NewEvent", "Event", routeValues: null, htmlAttributes: new { id = "createLink", @class = "btn btn-primary btn-lg" })
+</div>
+

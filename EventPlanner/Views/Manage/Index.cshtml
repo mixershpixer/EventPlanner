@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Your account";
+}
+<h2>@ViewBag.Title.</h2>
+<div>
+    <h4>User information</h4>
+    <hr />
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                Name
+            </dt>
+            <dd>
+                @Model.Name
+            </dd>
+            <dt>
+                Surname
+            </dt>
+            <dd>
+                @Model.Surname
+            </dd>
+            <dt>
+                Email
+            </dt>
+            <dd>
+                @User.Identity.Name
+            </dd>
+        </dl>
+    </div>
+</div>
